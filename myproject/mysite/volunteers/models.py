@@ -13,7 +13,7 @@ class Volunteer(models.Model):
         validators=[MinValueValidator(1)],
         default=1
     )
-    bonus_points = models.IntegerField("Бонусные баллы", default=0)
+   # bonus_points = models.IntegerField("Бонусные баллы", default=0)
 
     @property
     def rank_group(self):
