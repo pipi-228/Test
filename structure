@@ -1,0 +1,24 @@
+Structure of Project
+volunteer_portal/
+├── volunteers/
+│   ├── migrations/
+│   ├── templates/
+│   │   └── volunteers/
+│   │       ├── base.html
+│   │       ├── leaderboard.html
+│   │       ├── profile.html
+│   │       └── import.html
+│   ├── admin.py
+│   ├── apps.py
+│   ├── forms.py
+│   ├── models.py
+│   ├── urls.py
+│   ├── views.py
+│   └── management/
+│       └── commands/
+│           └── import_volunteers.py
+├── volunteer_portal/
+│   ├── settings.py
+│   ├── urls.py
+│   └── wsgi.py
+└── manage.py
