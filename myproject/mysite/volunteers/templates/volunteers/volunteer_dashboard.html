@@ -1,0 +1,17 @@
+{% extends 'volunteers/base.html' %}
+
+{% block content %}
+<h2>Добро пожаловать, {{ request.user.volunteer.full_name }}!</h2>
+<h3>Доступные бонусы:</h3>
+<ul>
+    {% for bonus in bonuses %}
+    <li>{{ bonus.name }} (до {{ bonus.valid_to }})</li>
+    {% endfor %}
+</ul>
+<h3>История бонусов:</h3>
+<ul>
+    {% for item in history %}
+    <li>{{ item.bonus.name }} ({{ item.date_issued }})</li>
+    {% endfor %}
+</ul>
+{% endblock %}
