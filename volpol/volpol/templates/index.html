@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Волонтеры спорта - Министерство спорта</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        /* Базовые стили */
+        :root {
+            --primary: #2c3e50;
+            --secondary: #1abc9c;
+            --3rd: #e6ac00;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --gray: #95a5a6;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: #f9f9f9;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        button, input, select {
+            font-family: inherit;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Шапка */
+        header {
+            background: linear-gradient(135deg, var(--primary), #34495e);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo img {
+            height: 50px;
+        }
+
+        .logo h1 {
+            font-size: 1.5rem;
+            margin: 0;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: #16a085;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 25px;
+        }
+
+        nav a {
+            font-weight: 500;
+            padding: 5px 0;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        nav a:hover {
+            color: var(--secondary);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--secondary);
+            transition: var(--transition);
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* Герой-секция */
+        #hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7));
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 8rem 0;
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        /* Кнопки */
+        button {
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            padding: 12px 25px;
+        }
+
+        #register-btn, .get-bonus, .form-group button[type="submit"] {
+            background: var(--secondary);
+            color: white;
+            font-size: 1rem;
+            box-shadow: 0 4px 15px rgba(26, 188, 156, 0.4);
+            }
+
+        #register-btn1, .get-bonus, .form-group button[type="submit"] {
+            background: var(--3rd);
+            color: white;
+            font-size: 1rem;
+            box-shadow: 0 4px 15px rgba(204, 153, 0, 0.4);
+        }
+
+        #register-btn:hover, .get-bonus:hover, .form-group button[type="submit"]:hover {
+            background: #16a085;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(26, 188, 156, 0.6);
+        }
+
+        #register-btn1:hover, .get-bonus:hover, .form-group button[type="submit"]:hover {
+            background: #b38600;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(204, 153, 0, 0.6);
+        }
+
+        #show-register, #show-login {
+            background: transparent;
+            color: var(--secondary);
+            border: 2px solid var(--secondary);
+            margin-left: 10px;
+        }
+
+        #show-register:hover, #show-login:hover {
+            background: var(--secondary);
+            color: white;
+        }
+
+        /* Формы */
+        #login-form, #register-form {
+            max-width: 500px;
+            margin: 3rem auto;
+            padding: 2.5rem;
+            background: white;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            border-color: var(--secondary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(26, 188, 156, 0.2);
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Секции */
+        section {
+            padding: 4rem 0;
+        }
+
+        section h2 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        section h2::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: var(--secondary);
+            margin: 15px auto 0;
+            border-radius: 2px;
+        }
+
+        /* Бонусы */
+        .bonus-filters {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 2rem;
+            justify-content: center;
+        }
+
+        .bonus-filters select, .bonus-filters input {
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .bonus-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .bonus-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .bonus-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .bonus-card > div {
+            padding: 1.5rem;
+        }
+
+        .bonus-card h3 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .expires {
+            color: var(--accent);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .partner {
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Партнеры */
+        .partner-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 2rem;
+        }
+
+        .partner-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .partner-card:hover {
+            transform: scale(1.05);
+        }
+
+        .partner-card img {
+            height: 80px;
+            margin-bottom: 1rem;
+            object-fit: contain;
+        }
+
+        .partner-card h3 {
+            color: var(--primary);
+        }
+
+        /* История бонусов */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+            background: white;
+            box-shadow: var(--shadow);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        th {
+            background: var(--primary);
+            color: white;
+            font-weight: 500;
+        }
+
+        tr:hover {
+            background: #f5f5f5;
+        }
+
+        /* Верификация */
+        .verify-form {
+            max-width: 500px;
+            margin: 0 auto;
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+        }
+
+        .verify-form label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .verify-form input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        #verification-result {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            margin-top: 2rem;
+            box-shadow: var(--shadow);
+        }
+
+        /* Подвал */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 3rem 0 1rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            color: var(--secondary);
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section ul li a:hover {
+            color: var(--secondary);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            header .container {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            nav ul {
+                gap: 15px;
+            }
+
+            #hero {
+                padding: 5rem 0;
+            }
+
+            .hero-content h2 {
+                font-size: 2rem;
+            }
+
+            .bonus-filters {
+                flex-direction: column;
+            }
+
+            .form-actions {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Шапка сайта -->
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1>Волонтеры</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#main">Главная</a></li>
+                    <li><a href="#bonuses">Бонусы</a></li>
+                    <li><a href="#partners">Партнеры</a></li>
+                    <li><a href="#achievements">Достижения</a></li>
+                    <li><a href="#login" id="auth-link"><i class="fas fa-sign-in-alt"></i> Вход</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Основное содержимое -->
+    <main>
+        <!-- Блок героя -->
+        <section id="hero">
+            <div class="hero-content">
+                <h2>Стань частью волонтерского движения</h2>
+                <p>Получайте бонусы за вашу активность</p>
+                <button id="register-btn"><i class="fas fa-user-plus"></i> Я волонтер</button>
+                <button id="register-btn1"><i class="fas fa-user-plus"></i> Я партнер</button>
+            </div>
+        </section>
+
+        <!-- Форма входа (скрыта по умолчанию) -->
+        <section id="login-form" class="hidden">
+            <div class="container">
+                <h2>Вход в систему</h2>
+                <form>
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" required placeholder="Ваш email">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Пароль:</label>
+                        <input type="password" id="password" required placeholder="Ваш пароль">
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit"><i class="fas fa-sign-in-alt"></i> Войти</button>
+                        <button type="button" id="show-register">Регистрация</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- Форма регистрации (скрыта по умолчанию) -->
+        <section id="register-form" class="hidden">
+            <div class="container">
+                <h2>Регистрация волонтера</h2>
+                <form>
+                    <div class="form-group">
+                        <label for="reg-name">ИНН:</label>
+                        <input type="text" id="reg-name" required placeholder="">
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- Секция доступных бонусов -->
+        
+        <!-- Секция партнеров -->
+        <section id="partners" style="background: #f1f5f9;">
+            <div class="container">
+                <h2>Наши партнеры</h2>
+                <div class="partner-list">
+                    <div class="partner-card">
+                        <img src="https://via.placeholder.com/150x80?text=Sportmaster" alt="Спортмастер">
+                        <h3>Спортмастер</h3>
+                        <p>Скидки на спортивные товары</p>
+                    </div>
+                    <div class="partner-card">
+                        <img src="https://via.placeholder.com/150x80?text=World+Class" alt="World Class">
+                        <h3>World Class</h3>
+                        <p>Абонементы в фитнес-клубы</p>
+                    </div>
+                    <div class="partner-card">
+                        <img src="https://via.placeholder.com/150x80?text=Starbucks" alt="ДонМак">
+                        <h3>Starbucks</h3>
+                        <p>Бесплатные напитки</p>
+                    </div>
+                    <div class="partner-card">
+                        <img src="https://via.placeholder.com/150x80?text=Adidas" alt="Adidas">
+                        <h3>Adidas</h3>
+                        <p>Специальные предложения</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Секция истории бонусов (видна только авторизованным) -->
+        <section id="bonus-history" class="hidden">
+            <div class="container">
+                <h2>История получения бонусов</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Дата</th>
+                            <th>Бонус</th>
+                            <th>Партнер</th>
+                            <th>Статус</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>01.10.2023</td>
+                            <td>Скидка 20% в Спортмастер</td>
+                            <td>Спортмастер</td>
+                            <td><span style="color: #1abc9c;">Активен</span></td>
+                        </tr>
+                        <tr>
+                            <td>15.09.2023</td>
+                            <td>Бесплатный кофе</td>
+                            <td>ДонМак</td>
+                            <td><span style="color: #e74c3c;">Использован</span></td>
+                        </tr>
+                        <tr>
+                            <td>10.08.2023</td>
+                            <td>Месяц фитнеса</td>
+                            <td>World Class</td>
+                            <td><span style="color: #e74c3c;">Истек</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Секция идентификационного кода (для партнеров) -->
+        <section id="partner-verify" class="hidden" style="background: #f1f5f9;">
+            <div class="container">
+                <h2>Подтверждение статуса волонтера</h2>
+                <div class="verify-form">
+                    <label for="volunteer-code">Введите код волонтера:</label>
+                    <input type="text" id="volunteer-code" placeholder="XXXX-XXXX-XXXX">
+                    <button id="verify-btn"><i class="fas fa-check-circle"></i> Проверить</button>
+                </div>
+                <div id="verification-result" class="hidden">
+                    <h3><i class="fas fa-user-check"></i> Результат проверки</h3>
+                    <p id="volunteer-name"><i class="fas fa-user"></i> Имя: Иванов Иван Иванович</p>
+                    <p id="volunteer-status"><i class="fas fa-badge-check"></i> Статус: Активный волонтер</p>
+                    <p id="available-bonuses"><i class="fas fa-gifts"></i> Доступные бонусы: 3</p>
+                    <button id="issue-bonus"><i class="fas fa-gift"></i> Выдать бонус</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Подвал сайта -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Контакты</h3>
+                    <p><i class="fas fa-building"></i> </p>
+                    <p><i class="fas fa-phone"></i> Телефон: +7</p>
+                    <p><i class="fas fa-envelope"></i> Email: aboba@example.ru</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Полезные ссылки</h3>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-file-alt"></i> Правила программы</a></li>
+                        <li><a href="#"><i class="fas fa-question-circle"></i> FAQ</a></li>
+                        <li><a href="#"><i class="fas fa-handshake"></i> Стать партнером</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Социальные сети</h3>
+                    <div style="display: flex; gap: 15px; font-size: 1.5rem;">
+                        <a href="#"><i class="fab fa-vk"></i></a>
+                        <a href="#"><i class="fab fa-telegram"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 РФ. Никакие права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Элементы интерфейса
+            const authLink = document.getElementById('auth-link');
+            const registerBtn = document.getElementById('register-btn');
+            const loginForm = document.getElementById('login-form');
+            const registerForm = document.getElementById('register-form');
+            const showRegister = document.getElementById('show-register');
+            const showLogin = document.getElementById('show-login');
+            
+            // Обработчики событий
+            authLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                loginForm.classList.remove('hidden');
+                registerForm.classList.add('hidden');
+                window.scrollTo({
+                    top: loginForm.offsetTop - 100,
+                    behavior: 'smooth'
+                });
+            });
+            
+            registerBtn.addEventListener('click', function() {
+                registerForm.classList.remove('hidden');
+                loginForm.classList.add('hidden');
+                window.scrollTo({
+                    top: registerForm.offsetTop - 100,
+                    behavior: 'smooth'
+                });
+            });
+            
+            showRegister.addEventListener('click', function() {
+                registerForm.classList.remove('hidden');
+                loginForm.classList.add('hidden');
+                window.scrollTo({
+                    top: registerForm.offsetTop - 100,
+                    behavior: 'smooth'
+                });
+            });
+            
+            showLogin.addEventListener('click', function() {
+                loginForm.classList.remove('hidden');
+                registerForm.classList.add('hidden');
+                window.scrollTo({
+                    top: loginForm.offsetTop - 100,
+                    behavior: 'smooth'
+                });
+            });
+            
+            // Имитация авторизации (для демонстрации)
+            const loginFormElement = document.querySelector('#login-form form');
+            loginFormElement.addEventListener('submit', function(e) {
+                e.preventDefault();
+                // Показываем уведомление
+                const notification = document.createElement('div');
+                notification.style.position = 'fixed';
+                notification.style.top = '20px';
+                notification.style.right = '20px';
+                notification.style.backgroundColor = '#1abc9c';
+                notification.style.color = 'white';
+                notification.style.padding = '15px 25px';
+                notification.style.borderRadius = '5px';
+                notification.style.boxShadow = '0 4px 6px rgba(0,0,0,0.1)';
+                notification.style.zIndex = '1000';
+                notification.style.animation = 'fadeIn 0.3s ease';
+                notification.innerHTML = '<i class="fas fa-check-circle"></i> Вход выполнен успешно!';
+                document.body.appendChild(notification);
+                
+                // Показываем скрытые разделы
+                document.getElementById('bonus-history').classList.remove('hidden');
+                document.getElementById('partner-verify').classList.add('hidden');
+                loginForm.classList.add('hidden');
+                
+                // Обновляем навигацию
+                authLink.innerHTML = '<i class="fas fa-user"></i> Мой профиль';
+                
+                // Убираем уведомление через 3 секунды
+                setTimeout(() => {
+                    notification.style.animation = 'fadeOut 0.3s ease';
+                    setTimeout(() => notification.remove(), 300);
+                }, 3000);
+            });
+            
+            // Имитация регистрации
+            const registerFormElement = document.querySelector('#register-form form');
+            registerFormElement.addEventListener('submit', function(e) {
+                e.preventDefault();
+                // Показываем уведомление
+                const notification = document.createElement('div');
+                notification.style.position = 'fixed';
+                notification.style.top = '20px';
+                notification.style.right = '20px';
+                notification.style.backgroundColor = '#1abc9c';
+                notification.style.color = 'white';
+                notification.style.padding = '15px 25px';
+                notification.style.borderRadius = '5px';
+                notification.style.boxShadow = '0 4px 6px rgba(0,0,0,0.1)';
+                notification.style.zIndex = '1000';
+                notification.style.animation = 'fadeIn 0.3s ease';
+                notification.innerHTML = '<i class="fas fa-check-circle"></i> Регистрация успешна! Проверьте ваш email.';
+                document.body.appendChild(notification);
+                
+                registerForm.classList.add('hidden');
+                
+                // Убираем уведомление через 3 секунды
+                setTimeout(() => {
+                    notification.style.animation = 'fadeOut 0.3s ease';
+                    setTimeout(() => notification.remove(), 300);
+                }, 3000);
+            });
+            
+            // Верификация кода волонтера
+            document.getElementById('verify-btn').addEventListener('click', function() {
+                document.getElementById('verification-result').classList.remove('hidden');
+                window.scrollTo({
+                    top: document.getElementById('verification-result').offsetTop - 100,
+                    behavior: 'smooth'
+                });
+            });
+            
+            // Анимация для карточек бонусов
+            const bonusCards = document.querySelectorAll('.bonus-card');
+            bonusCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    const icon = this.querySelector('.get-bonus i');
+                    icon.style.transform = 'rotate(15deg)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    const icon = this.querySelector('.get-bonus i');
+                    icon.style.transform = 'rotate(0)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
