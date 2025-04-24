@@ -7,7 +7,11 @@ import django.utils.timezone
 from django.conf import settings
 from django.db import migrations, models
 
+"""    initial = True - указывает, что это начальная миграция
 
+    dependencies - список зависимостей (в данном случае от миграций auth)
+
+    operations - список операций, которые будут выполнены при применении миграции"""
 class Migration(migrations.Migration):
 
     initial = True
@@ -17,7 +21,11 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.CreateModel(
+        
+        migrations.CreateModel( 
+        #Расширяет стандартную модель User Django
+        #Добавляет флаги для разных типов пользователей (волонтер, партнер, админ)
+        #Сохраняет все стандартные поля и функциональность Django User
             name='User',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
@@ -47,6 +55,9 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.CreateModel(
+            #Связана один-к-одному с основной моделью User
+            #Содержит дополнительную информацию о партнере
+            #При удалении пользователя удаляется и связанный партнер (CASCADE)
             name='Partner',
             fields=[
                 ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, primary_key=True, serialize=False, to=settings.AUTH_USER_MODEL)),
@@ -57,6 +68,10 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.CreateModel(
+            #Также связана с User один-к-одному
+            #ИНН и уникальный код должны быть уникальными
+            #Категория волонтера определяется выбором из 3 вариантов
+            #Содержит персональные данные и достижения волонтера
             name='Volunteer',
             fields=[
                 ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, primary_key=True, serialize=False, to=settings.AUTH_USER_MODEL)),
@@ -71,6 +86,10 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.CreateModel(
+            #Бонусы привязаны к партнерам (ForeignKey)
+            #Имеют срок действия (valid_from, valid_to)
+            #Доступны для определенных категорий волонтеров
+            #Могут быть активны/неактивны
             name='Bonus',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
@@ -84,6 +103,10 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.CreateModel(
+            #Фиксирует факт выдачи бонуса
+            #Содержит информацию о волонтере, партнере и самом бонусе
+            #Автоматически записывает дату выдачи
+            #Хранит использованный код
             name='BonusHistory',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
