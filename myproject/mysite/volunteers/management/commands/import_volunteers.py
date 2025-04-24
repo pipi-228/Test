@@ -42,15 +42,15 @@ class Command(BaseCommand):
                 unique_code = f"{base_code}-{uuid.uuid4().hex[:4]}"
 
                 try:
-                    # Создание пользователя
+                    # Создание пользователя на основе его номера и инн
                     username = f"volunteer_{row['ИНН']}_{i}"
                     user = User.objects.create_user(
                         username=username,
-                        password=str(uuid.uuid4()),  # Генерация случайного пароля
+                        password=str(uuid.uuid4()),  # Генерация случайного пароля хз зачем он нужен
                         is_volunteer=True
                     )
 
-                    # Создание волонтера
+                    # Создание волонтера с остальными данными из базы
                     Volunteer.objects.create(
                         user=user,
                         full_name=row['ФИО'],
